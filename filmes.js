@@ -84,7 +84,7 @@ const filmes = [
     "categoria": "",
     "id": "",
     "mostrarNoBanner": true,
-    "prioridade": 3
+    "prioridade": 5
   },
   {
     "tipo": "filme",
