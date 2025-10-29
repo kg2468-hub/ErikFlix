@@ -6,6 +6,10 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ErikFlix</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Meta para visualização em Smart TVs -->
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
 
@@ -14,63 +18,79 @@
     <div class="top-left">
       <img src="logo.png" alt="ErikFlix" class="logo">
 
+      <!-- Barra de pesquisa -->
       <div class="busca-wrapper">
         <input
           type="text"
           id="pesquisa"
           class="input-busca"
           placeholder="Buscar filme, série..."
+          autocomplete="off"
         />
-        <!-- NOVO: caixa de sugestões -->
+        <!-- Sugestões automáticas -->
         <div id="suggestions" class="suggestions"></div>
       </div>
     </div>
   </header>
 
   <main>
-    <!-- Banner principal -->
+
+    <!-- BANNER PRINCIPAL -->
     <section id="banner-area">
-      <section id="banner-destaque">
-        <img id="banner-imagem" src="" alt="Banner">
-        <div id="banner-info">
+      <div id="banner-destaque">
+        <img id="banner-imagem" src="" alt="Banner principal">
+        <div id="banner-info" class="banner-info">
           <h2 id="banner-titulo"></h2>
           <p id="banner-descricao"></p>
           <button id="assistir-btn" class="assistir-btn">▶ Assistir agora</button>
         </div>
-      </section>
+      </div>
     </section>
 
-    <!-- Catálogos por categoria -->
-    <div id="categorias"></div>
+    <!-- CATÁLOGOS POR CATEGORIA -->
+    <div id="categorias" class="categorias-container"></div>
+
   </main>
 
-  <!-- Modal do player -->
+  <!-- MODAL DO PLAYER -->
   <div id="playerModal" class="modal">
     <div class="player-content">
       <iframe id="player" allowfullscreen></iframe>
 
+      <!-- ERRO PLAYER -->
       <div id="erroPlayer" class="erro-player">
         ❌ Não foi possível carregar o vídeo.<br>
         Verifique se o link do Drive está com acesso liberado.
       </div>
 
-     <h2 id="tituloFilme"></h2>
-	<!-- NOVO BLOCO ROLÁVEL -->
-  <div class="info-container">
-    
-    <p id="descricaoFilme"></p>
-  </div>
+      <!-- TÍTULO -->
+      <h2 id="tituloFilme"></h2>
+
+      <!-- BLOCO ROLÁVEL DE DESCRIÇÃO -->
+      <div class="info-container">
+        <p id="descricaoFilme"></p>
+      </div>
+
+      <!-- NOVO BLOCO DE DETALHES -->
+      <div class="detalhes-filme">
+        <span id="filmeAno"></span> • 
+        <span id="filmeDuracao"></span> • 
+        <span id="filmeResolucao"></span>
+      </div>
 
       <button id="fechar" class="btn-fechar">Fechar</button>
     </div>
   </div>
 
+  <!-- RODAPÉ -->
   <footer class="rodape">
-    <p>ErikFlix • Google Drive • versão 6 29/10/2025</p>
+    <p>ErikFlix • Google Drive • versão [6.6] 29/10/2025</p>
   </footer>
 
+  <!-- SCRIPTS -->
   <script src="filmes.js"></script>
   <script src="script.js"></script>
-	<script src="tv.js"></script>
+  <script src="tv.js"></script>
+
 </body>
 </html>
