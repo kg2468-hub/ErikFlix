@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:tizen="http://tizen.org/ns/widgets"
+        id="org.erikflix.tv"
+        version="1.0.0"
+        viewmodes="fullscreen"
+        type="web">
+
+  <name>ErikFlix</name>
+  <tizen:application id="org.erikflix.tv" package="erikflix" required_version="4.0"/>
+  <description>Aplicativo de streaming pessoal de Erik Henrique</description>
+  <author email="contato@erikhenriquesm.com" href="https://erikhenriquesm.com">Erik Henrique</author>
+
+  <icon src="logo.png"/>
+  <content src="index.html"/>
+  <access origin="*" subdomains="true"/>
+
+  <tizen:privilege name="http://tizen.org/privilege/internet"/>
+  <tizen:setting screen-orientation="landscape" background-support="disable"/>
+</widget>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ErikFlix</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TOPO -->
+  <header id="topo" class="topbar">
+    <div class="top-left">
+      <img src="logo.png" alt="ErikFlix" class="logo">
+
+      <div class="busca-wrapper">
+        <input
+          type="text"
+          id="pesquisa"
+          class="input-busca"
+          placeholder="Buscar filme, série..."
+        />
+        <!-- NOVO: caixa de sugestões -->
+        <div id="suggestions" class="suggestions"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Banner principal -->
+    <section id="banner-area">
+      <section id="banner-destaque">
+        <img id="banner-imagem" src="" alt="Banner">
+        <div id="banner-info">
+          <h2 id="banner-titulo"></h2>
+          <p id="banner-descricao"></p>
+          <button id="assistir-btn" class="assistir-btn">▶ Assistir agora</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- Catálogos por categoria -->
+    <div id="categorias"></div>
+  </main>
+
+  <!-- Modal do player -->
+  <div id="playerModal" class="modal">
+    <div class="player-content">
+      <iframe id="player" allowfullscreen></iframe>
+
+      <div id="erroPlayer" class="erro-player">
+        ❌ Não foi possível carregar o vídeo.<br>
+        Verifique se o link do Drive está com acesso liberado.
+      </div>
+
+     <h2 id="tituloFilme"></h2>
+	<!-- NOVO BLOCO ROLÁVEL -->
+  <div class="info-container">
+    
+    <p id="descricaoFilme"></p>
+  </div>
+
+      <button id="fechar" class="btn-fechar">Fechar</button>
+    </div>
+  </div>
+
+  <footer class="rodape">
+    <p>ErikFlix • Google Drive • versão 6 29/10/2025</p>
+  </footer>
+
+  <script src="filmes.js"></script>
+  <script src="script.js"></script>
+	<script src="tv.js"></script>
+</body>
+</html>
