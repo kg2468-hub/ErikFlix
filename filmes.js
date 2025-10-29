@@ -1,6 +1,26 @@
 const filmes = [
   {
     "tipo": "filme",
+    "titulo": "À Beira do Abismo",
+    "descricao": "Policial honesto é preso por um crime que não cometeu. Consegue fugir da prisão e, ameaçando cometer suicídio do alto de um edifício, envolve uma experiente negociadora da polícia em um plano para provar sua inocência.",
+    "capa": "https://m.media-amazon.com/images/S/pv-target-images/70d25a006644288e51d94447fa726d2ce622971333076cb7577b12e8a388b985.jpg",
+    "categoria": "Ação",
+    "id": "1bWXVone_m1l9aJUYlQQXVd3enk3qp4we",
+    "mostrarNoBanner": false,
+    "prioridade": 1
+  },
+  {
+    "tipo": "filme",
+    "titulo": "Homem-Aranha no Aranhaverso",
+    "descricao": "Após ser atingido por uma teia radioativa, Miles Morales, um jovem negro do Brooklyn, se torna o Homem-Aranha, inspirado no legado do já falecido Peter Parker. Entretanto, ao visitar o túmulo de seu ídolo em uma noite chuvosa, ele é surpreendido com a presença do próprio Peter, vestindo o traje do herói por baixo de um sobretudo. A surpresa fica ainda maior quando Miles descobre que ele veio de uma dimensão paralela, assim como outras versões do Homem-Aranha.",
+    "capa": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuOzzY622bbROyH5LrdY8h8fNZZ6MRWU7nMcAdvnn1jQ&s=10",
+    "categoria": "Animação",
+    "id": "1oTn6HXod8EHS5JlBibnhjPSrqVhgNwjV",
+    "mostrarNoBanner": false,
+    "prioridade": 1
+  },
+  {
+    "tipo": "filme",
     "titulo": "Cruzeiro das Loucas",
     "descricao": "Um agente de viagens decide dar uma lição em Nick, e seu melhor amigo Jerry, fazendo uma reserva para os dois em um cruzeiro exclusivo para homossexuais. Quando eles percebem isso, já é tarde demais, mas aos poucos eles vão deixando seus sentimentos homofóbicos de lado e acabam conhecendo Inga, uma linda modelo, e Gabriella, uma professora de dança por quem Jerry se apaixona.",
     "capa": "https://br.web.img3.acsta.net/c_310_420/medias/nmedia/18/95/73/90/20425630.jpg",
@@ -16,6 +36,36 @@ const filmes = [
     "categoria": "Comédia",
     "id": "0ByfEzfBLMGseS0ZjM25OQVl1TVE",
     "mostrarNoBanner": true
+  },
+  {
+    "tipo": "filme",
+    "titulo": "A Coleção Invisível",
+    "descricao": "Para resolver a crise da loja de antiguidades de sua família, Beto se aventura ao interior da Bahia em busca de uma coleção de gravuras raras. Ele conhece um colecionador que teve sua vida arruinada, e este encontro muda sua visão de mundo.",
+    "capa": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTip0pga7dPD6PkUXbbLK7IEUZpOGpkyUGEHWjfiPlF7Q&s=10",
+    "categoria": "Drama",
+    "id": "1e8joyTwZ9SUzK8YjIQNu7rk_ijJKsW_x",
+    "mostrarNoBanner": false,
+    "prioridade": 1
+  },
+  {
+    "tipo": "filme",
+    "titulo": "À Beira do Caminho",
+    "descricao": "Um caminhoneiro solitário, que esconde os traumas do seu passado, cruza o caminho de um menino. O garoto perdeu a mãe e está indo para São Paulo tentar achar o pai que não conhece.",
+    "capa": "https://upload.wikimedia.org/wikipedia/pt/thumb/4/48/%C3%80_Beira_do_Caminho.jpg/250px-%C3%80_Beira_do_Caminho.jpg",
+    "categoria": "Drama",
+    "id": "1LNVgfojdS2jza6rfrT3afDASBr-3h1Wt",
+    "mostrarNoBanner": false,
+    "prioridade": 1
+  },
+  {
+    "tipo": "filme",
+    "titulo": "A Cor Púrpura",
+    "descricao": "Este conto épico abrange 40 anos na vida de Celie, uma mulher afro-americana que mora no Sul e que sobreviveu abuso e intolerância de seu pai. Depois que seu pai a casa com o degradante Sr. Albert Johnson, as coisas vão de mal a pior. Celie procura encontrar companhia em qualquer lugar que pode. Perseverante, ela mantém o sonho de um dia reencontrar sua irmã na África.",
+    "capa": "https://br.web.img3.acsta.net/medias/nmedia/18/94/57/74/20339839.jpg",
+    "categoria": "Drama",
+    "id": "108wfWfq-LJ7cLIDrbcJqADFnAYhlc7Q0",
+    "mostrarNoBanner": false,
+    "prioridade": 1
   },
   {
     "tipo": "filme",
@@ -77,6 +127,16 @@ const filmes = [
     "mostrarNoBanner": true
   },
   {
+    "tipo": "filme",
+    "titulo": "A Cinco Passos de Você",
+    "descricao": "Stella passa muito tempo no hospital por causa de uma fibrose cística. Lá, ela conhece Will, que sofre da mesma doença. Eles são obrigados a manter distância, mas mesmo assim se apaixonam.",
+    "capa": "https://m.media-amazon.com/images/I/81Q11TuUR3L.jpg",
+    "categoria": "Romance",
+    "id": "132_vwYz5zXMQORAhWmTwQHlLZ47Tpu7V",
+    "mostrarNoBanner": false,
+    "prioridade": 1
+  },
+  {
     "tipo": "anuncio",
     "titulo": "ErikFlix",
     "descricao": "",
@@ -84,7 +144,7 @@ const filmes = [
     "categoria": "",
     "id": "",
     "mostrarNoBanner": true,
-    "prioridade": 5
+    "prioridade": 3
   },
   {
     "tipo": "filme",
