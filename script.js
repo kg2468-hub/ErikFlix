@@ -1,6 +1,6 @@
 // ===== ELEMENTOS PRINCIPAIS =====
 const categoriasDiv = document.getElementById("categorias");
-const bannerArea = document.getElementById("banner-area"); // NOVO
+const bannerArea = document.getElementById("banner-destaque");
 const bannerImg = document.getElementById("banner-imagem");
 const bannerTitulo = document.getElementById("banner-titulo");
 const bannerDescricao = document.getElementById("banner-descricao");
@@ -12,12 +12,15 @@ const tituloFilme = document.getElementById("tituloFilme");
 const descricaoFilme = document.getElementById("descricaoFilme");
 const fechar = document.getElementById("fechar");
 const pesquisa = document.getElementById("pesquisa");
-const suggestionsBox = document.getElementById("suggestions"); // NOVO
+const suggestionsBox = document.getElementById("suggestions");
 
-// ===== SELEÇÃO CONTROLADA DE BANNERS =====
+// ===== CAMPOS EXTRAS NO MODAL =====
+const filmeAno = document.getElementById("filmeAno");
+const filmeDuracao = document.getElementById("filmeDuracao");
+const filmeResolucao = document.getElementById("filmeResolucao");
+
+// ===== SELEÇÃO DE BANNERS =====
 let banners = [];
-
-// adiciona os itens que devem aparecer no banner e respeita a prioridade
 filmes.forEach(item => {
   if (item.mostrarNoBanner) {
     const vezes = item.prioridade && item.prioridade > 1 ? item.prioridade : 1;
@@ -25,9 +28,8 @@ filmes.forEach(item => {
   }
 });
 
-// fallback se não houver nenhum marcado como banner
 if (banners.length === 0) {
-  console.warn("⚠️ Nenhum item foi marcado com mostrarNoBanner: true");
+  console.warn("⚠️ Nenhum item com mostrarNoBanner: true");
   banners = [filmes[0]];
 }
 
@@ -36,7 +38,7 @@ let bannerIndex = 0;
 atualizarBanner(banners[bannerIndex]);
 
 function atualizarBanner(item) {
-  bannerImg.src = item.capa;
+  bannerImg.src = item.banner && item.mostrarNoBanner ? item.banner : item.capa;
 
   if (item.tipo === "anuncio") {
     bannerTitulo.textContent = "";
@@ -59,16 +61,26 @@ setInterval(() => {
     atualizarBanner(banners[bannerIndex]);
     bannerImg.classList.add("active");
   }, 400);
-}, 6000);
+}, 7000);
 
-// ===== GERAR CATEGORIAS =====
+// ===== GERAR CATEGORIAS (com suporte a múltiplas) =====
 function gerarCategorias(lista) {
-  // Filtra apenas filmes (exclui anúncios)
   const apenasFilmes = lista.filter(f => f.tipo === "filme");
-  const categoriasUnicas = [...new Set(apenasFilmes.map(f => f.categoria))];
+
+  // Coleta categorias únicas
+  const todasCategorias = [];
+  apenasFilmes.forEach(filme => {
+    if (filme.categoria) {
+      const categorias = filme.categoria.split(/[/,]/).map(c => c.trim());
+      categorias.forEach(cat => {
+        if (cat && !todasCategorias.includes(cat)) todasCategorias.push(cat);
+      });
+    }
+  });
+
   categoriasDiv.innerHTML = "";
 
-  categoriasUnicas.forEach(cat => {
+  todasCategorias.forEach(cat => {
     const sec = document.createElement("section");
     sec.className = "categoria";
     sec.innerHTML = `<h3>${cat}</h3>`;
@@ -76,31 +88,51 @@ function gerarCategorias(lista) {
     const linha = document.createElement("div");
     linha.className = "linha-filmes";
 
-    apenasFilmes
-      .filter(f => f.categoria === cat)
-      .forEach(filme => {
+    apenasFilmes.forEach(filme => {
+      if (
+        filme.categoria &&
+        filme.categoria
+          .split(/[/,]/)
+          .map(c => c.trim().toLowerCase())
+          .includes(cat.toLowerCase())
+      ) {
         const card = document.createElement("div");
         card.className = "filme";
 
+        // imagem da capa
         const img = document.createElement("img");
         img.src = filme.capa;
+        img.alt = filme.titulo;
 
-        // fallback de capa quebrada
         img.onerror = () => {
           card.innerHTML = `
-            <div class="erro">📷<br>Não foi possível carregar a capa</div>
-            <p>${filme.titulo}</p>`;
+            <div class="erro">📷<br>Erro ao carregar a capa</div>
+            <div class="info"><div class="titulo">${filme.titulo}</div></div>`;
         };
 
-        const nome = document.createElement("p");
+        // bloco de info
+        const info = document.createElement("div");
+        info.className = "info";
+
+        const nome = document.createElement("div");
+        nome.className = "titulo";
         nome.textContent = filme.titulo;
 
-        card.appendChild(img);
-        card.appendChild(nome);
-        card.onclick = () => abrirPlayer(filme);
+        // bloco de detalhes (ano, duração, resolução)
+        const detalhes = document.createElement("div");
+        detalhes.className = "detalhes";
+        detalhes.textContent = `${filme.ano || "—"} • ${filme.duracao || "—"} • ${filme.resolucao || "—"}`;
 
+        info.appendChild(nome);
+        info.appendChild(detalhes);
+
+        card.appendChild(img);
+        card.appendChild(info);
+
+        card.onclick = () => abrirPlayer(filme);
         linha.appendChild(card);
-      });
+      }
+    });
 
     sec.appendChild(linha);
     categoriasDiv.appendChild(sec);
@@ -110,18 +142,20 @@ gerarCategorias(filmes);
 
 // ===== PLAYER =====
 function abrirPlayer(filme) {
-  if (filme.tipo === "anuncio") return; // anúncios não abrem player
+  if (filme.tipo === "anuncio") return;
 
   tituloFilme.textContent = filme.titulo;
   descricaoFilme.textContent = filme.descricao;
   erroPlayer.style.display = "none";
 
-  // tenta carregar o vídeo
+  filmeAno.textContent = filme.ano || "";
+  filmeDuracao.textContent = filme.duracao || "";
+  filmeResolucao.textContent = filme.resolucao || "";
+
   player.src = `https://drive.google.com/file/d/${filme.id}/preview`;
 
-  // checagem de erro (Drive com link inválido)
   setTimeout(() => {
-    if (!player.contentWindow || player.src.includes("id_invalido") || player.src.trim() === "") {
+    if (!player.contentWindow || !filme.id) {
       erroPlayer.style.display = "block";
     }
   }, 5000);
@@ -139,8 +173,7 @@ function fecharModal() {
   modal.style.display = "none";
 }
 
-// ===== SUGESTÕES DA BUSCA =====
-// gera HTML da caixa de sugestões (máx 5 resultados)
+// ===== SUGESTÕES DE BUSCA =====
 function atualizarSugestoes(termo) {
   const searchTerm = termo.toLowerCase();
   const matches = filmes
@@ -166,44 +199,30 @@ function atualizarSugestoes(termo) {
   suggestionsBox.style.display = "block";
 }
 
-// quando clico numa sugestão
 function selecionarSugestao(titulo) {
   const filmeEscolhido = filmes.find(f => f.titulo === titulo);
-  if (filmeEscolhido) {
-    abrirPlayer(filmeEscolhido);
-  }
+  if (filmeEscolhido) abrirPlayer(filmeEscolhido);
 
-  // limpa busca e restaura layout
   pesquisa.value = "";
   suggestionsBox.style.display = "none";
   suggestionsBox.innerHTML = "";
 
-  if (bannerArea) bannerArea.style.display = ""; // traz de volta
+  if (bannerArea) bannerArea.style.display = "";
   gerarCategorias(filmes);
 }
 
-// helper pra escapar aspas no onclick
 function escapeJS(str) {
-  return str.replace(/["'\\]/g, s => "\\"+s);
+  return str.replace(/["'\\]/g, s => "\\" + s);
 }
 
-// ===== PESQUISA AVANÇADA =====
+// ===== PESQUISA =====
 pesquisa.addEventListener("input", e => {
   const termo = e.target.value.toLowerCase().trim();
 
-  // NOVO: esconder o banner quando existe texto
-  if (bannerArea) {
-    if (termo.length > 0) {
-      bannerArea.style.display = "none";
-    } else {
-      bannerArea.style.display = "";
-    }
-  }
+  if (bannerArea) bannerArea.style.display = termo.length > 0 ? "none" : "";
 
-  // atualiza sugestões dinâmicas
   atualizarSugestoes(termo);
 
-  // filtra apenas filmes que tenham título ou descrição válidos
   const filtrados = filmes.filter(f =>
     f.tipo === "filme" &&
     (
@@ -215,10 +234,7 @@ pesquisa.addEventListener("input", e => {
   gerarCategorias(filtrados.length ? filtrados : filmes);
 });
 
-// se clicar fora da caixa de busca/sugestões, some o dropdown
 document.addEventListener("click", e => {
   const dentroBusca = e.target.closest(".busca-wrapper");
-  if (!dentroBusca) {
-    suggestionsBox.style.display = "none";
-  }
+  if (!dentroBusca) suggestionsBox.style.display = "none";
 });
