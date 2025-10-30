@@ -152,7 +152,7 @@ function abrirPlayer(filme) {
   filmeDuracao.textContent = filme.duracao || "";
   filmeResolucao.textContent = filme.resolucao || "";
 
-  player.src = `https://drive.google.com/file/d/${filme.id}/embedded`;
+  player.src = `https://drive.google.com/file/d/${filme.id}/preview`;
 
   setTimeout(() => {
     if (!player.contentWindow || !filme.id) {
